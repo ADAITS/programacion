@@ -4,17 +4,21 @@ public class Coche {
     private String matricula;
     private String marca;
     private String modelo;
-    private int deposito; // %
+    private double deposito; // litros
+    private int capacidad;
+    private double consumo; // litros / 100 km 
 
-    public Coche(String matricula, String marca, String modelo, int deposito){
+    public Coche(String matricula, String marca, String modelo, double deposito, int capacidad, double consumo){
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.deposito = deposito;
+        this.capacidad = capacidad;
+        this.consumo = consumo;
     }
 
-    public Coche(String matricula, String marca, String modelo){
-        this(matricula, marca, modelo, 100);
+    public Coche(String matricula, String marca, String modelo, int capacidad){
+        this(matricula, marca, modelo, capacidad, capacidad, 6);
     }
 
     public String getMatricula(){
@@ -41,7 +45,7 @@ public class Coche {
         this.modelo = modelo;
     }
 
-    private void setDeposito(int deposito){
+    private void setDeposito(double deposito){
         if(deposito < 0) {
             this.deposito = 0;
         }else if(deposito > 100){
@@ -52,19 +56,29 @@ public class Coche {
     }
 
     public void llenarDeposito(){
-        this.deposito = 100;
+        this.deposito = this.capacidad;
     }
 
-    public void hacerKm(double kilometros){
-        double consumo = (double)kilometros / 10;
-        if(consumo > this.deposito){
-            System.out.println("No hay gasolina");
+    public boolean hacerKm(int kilometros){
+        double litros = calcularConsumo(kilometros);
+        if(litros > this.deposito){
+            System.out.println("No hay gasolina suficiente");
+            return false;
         }
-        this.setDeposito((int)(this.deposito - consumo));
+        this.setDeposito(this.deposito - litros);
+        return true;
+    }
+
+    public double calcularConsumo(int km) {
+        return km * this.consumo / 100;
+    }
+
+    private double getPorcentaje(){
+        return 100 * this.deposito / this.capacidad;
     }
 
     @Override
     public String toString(){
-        return this.matricula + " " + this.marca + " " + this.modelo + " " + this.deposito;
+        return this.matricula + " " + this.marca + " " + this.modelo + " " + this.getPorcentaje();
     }
 }
