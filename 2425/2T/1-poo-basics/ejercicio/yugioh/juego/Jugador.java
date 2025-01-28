@@ -18,6 +18,7 @@ public class Jugador {
         this.nombre = nombre;
         this.mano = new ArrayList<Carta>(7);
         this.baraja = baraja;
+        robarCartas(5);
     }
 
     public String getNombre() {
@@ -35,6 +36,25 @@ public class Jugador {
     public void robarCarta(){
         Carta cartaRobada = this.baraja.removeFirst();
         this.mano.add(cartaRobada);
+    }
+
+    public void robarCartas(int num) {
+        for (int i = 0; i < num; i++) {
+            robarCarta();
+        }
+    }
+
+    public Carta jugarCarta() {
+        // 1 Seleccion de carta
+        if(this.mano.size() == 0) {
+            System.out.println("Mano vacía, tienes que robar antes");
+            return null;
+        }
+        Carta carta = this.mano.remove((int)(Math.random()*this.mano.size()));
+        // Seleccionar la posición
+        String posicion = Math.random() < 0.5 ? "ataque" : "defensa";
+        carta.colocar(posicion);
+        return carta;
     }
 
     @Override

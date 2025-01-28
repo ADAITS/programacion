@@ -1,21 +1,9 @@
-package pruebas;
+package juego;
 
 import java.util.ArrayList;
 
-import juego.Carta;
-import juego.Jugador;
-
-public class Test {
-    Jugador jugador;
-
-    public Test(){
-        //probarCartaAtacar();
-        crearJugador();
-        robarCartas(5);
-        jugarCarta();
-    }
-
-    public void crearJugador(){
+public class Datos {
+    public ArrayList<Carta> crearBaraja() {
         ArrayList<Carta> baraja = new ArrayList<Carta>();
         baraja.add(new Carta("Dragon Blanco de Ojos Azules", 3000, 2500));
         baraja.add(new Carta("Hechicera Oscura", 2000, 1700));
@@ -39,34 +27,6 @@ public class Test {
         baraja.add(new Carta("Elemental Hero Avian", 1000, 1000));
         baraja.add(new Carta("Elemental Hero Burstinatrix", 1500, 1300));
         baraja.add(new Carta("Elemental Hero Flare Neos", 2600, 2000));
-
-        jugador = new Jugador("Juan", baraja);
-        System.out.println(jugador);
-    }
-
-    public void robarCartas(int num){
-        for (int i = 0; i < num; i++) {
-            jugador.robarCarta();
-        }
-        System.out.println(jugador);
-    }
-
-    public void jugarCarta(){
-        Carta carta = jugador.jugarCarta();
-        System.out.println(carta);
-    }
-
-    public void probarCartaAtacar() {
-        Carta carta1 = new Carta("Mago oscuro", 2500, 2100);
-        Carta carta2 = new Carta("Guerrero Mágico de los Hierros", 1500, 1200);
-        Carta carta3 = new Carta("Dragon Blanco de Ojos Azules", 3000, 2500);
-
-        System.out.println(carta1);
-        System.out.println(carta2);
-        System.out.println(carta3);
-
-        carta1.setPosicion("ataque");
-        carta3.setPosicion("defensa");
-        System.out.println(carta1.atacar(carta3));
+        return baraja;
     }
 }

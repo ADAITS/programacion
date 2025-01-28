@@ -68,6 +68,15 @@ public class Carta {
         return 0;
     }
 
+    public void colocar(String posicion){
+        this.posicion = posicion;
+        if(posicion == "ataque"){
+            this.oculto = false;
+        }else if(posicion == "defensa"){
+            this.oculto = true;
+        }
+    }
+
     @Override
     public String toString() {
         return "Carta [nombre=" + nombre + ", ataque=" + ataque + ", defensa=" + defensa + ", posicion=" + posicion
