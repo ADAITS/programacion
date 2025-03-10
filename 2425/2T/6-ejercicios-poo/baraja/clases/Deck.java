@@ -43,16 +43,36 @@ public class Deck {
     }
 
     public Card draw() {
-        // TODO eliminar primera carta de la lista y devolverla
-        return null;
+        if(cards.isEmpty()){
+            return null;
+        }
+        return cards.removeFirst();
     }
 
     public void cut() {
-        // TODO
+        // 1. Calcular el margen de error
+        int error = (int) (Math.random()*11) - 5;
+        int cutNumber = cards.size() / 2 + error;
+        // 2. Dividir la baraja en 2 partes
+        List<Card> up = cards.subList(0, cutNumber);
+        List<Card> down = cards.subList(cutNumber, cards.size());
+        // 3. Unir las dos partes invertidas
+        ArrayList<Card> cuttedCards = new ArrayList<Card>(down);
+        cuttedCards.addAll(up);
+        this.cards = cuttedCards;
     }
 
     public void americanShuffle() {
-        // TODO
+        int cutNumber = (int) Math.ceil(cards.size() / 2.0);
+        // TODO Cortar por la mitad e intercalar
+        ArrayList<Card> shuffled = new ArrayList<Card>(cards.size());
+        for (int i = 0; i < cutNumber; i+=1) {
+            shuffled.add(i*2, cards.get(i));
+        }
+        for (int i = cutNumber; i < cards.size(); i+=1) {
+            shuffled.add(i*2+1, cards.get(i));
+        }
+        this.cards = shuffled;
     }
 
     @Override

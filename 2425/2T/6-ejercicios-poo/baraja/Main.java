@@ -34,7 +34,9 @@ public class Main {
         Card drawedCard = d.draw();
         printGreen("### Draw ###");
         System.out.println(drawedCard + "\n" + d.getNumberOfCards());
-
-
+        printGreen("### Cut ###");
+        d.cut();
+        System.out.println(d);
+        d.americanShuffle();
     }
 }
