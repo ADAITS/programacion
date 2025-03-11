@@ -3,6 +3,6 @@ import clases.Movimiento;
 
 public class Main {
     public static void main(String[] args) {
-        new Banco();
+        new Banco().start();
     }
 }

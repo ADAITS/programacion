@@ -24,7 +24,7 @@ public class Cuenta {
     private String crearDigitosAleatorios(int numDigitos){
         String digitos = "";
         for (int i = 0; i < numDigitos; i++) {
-            digitos += (int) Math.random()*10;
+            digitos += (int) (Math.random()*10);
         }
         return digitos;
     }
@@ -56,36 +56,27 @@ public class Cuenta {
     }
 
     public void ingresarDinero(double cantidad) {
-        // TODO
-        // 1. Aumentar el saldo
         this.saldo += cantidad;
-        // 2. Crear movimiento de tipo ingreso con la cantidad correspondiente
-        // 3. Añadirlo a la lista de movimientos
         this.movimientos.add(new Movimiento(this.user, cantidad, "ingreso"));
     }
 
-    public void retirarDinero(double cantidad) {
-        // TODO
-        // 1. Disminuir el saldo
-        // 2. Crear movimiento de tipo retirada con la cantidad correspondiente
-        // 3. Añadirlo a la lista de movimientos
+    public void retirarDinero(double cantidad) throws Exception {
+        if(cantidad > this.saldo) throw new Exception("No hay money :'(");
+
+        this.saldo -= cantidad;
+        this.movimientos.add(new Movimiento(this.user, cantidad*-1, "retirada"));
     }
 
-    public void transferirDinero(double cantidad, Cuenta destino){
-        // TODO
-        // 1. Disminuir el saldo cuenta this
-        // 2. Crear y añadir movimiento de tipo envio con la cantidad correspondiente
-
-        // 3. Aumentar el saldo cuenta destino
-        // 4. Crear y añadir movimiento de tipo ingreso con la cantidad correspondiente a cuenta destino
-  
+    public void transferirDinero(double cantidad, Cuenta destino) throws Exception {
+        this.retirarDinero(cantidad);
+        destino.ingresarDinero(cantidad);
     }
 
     @Override
     public String toString() {
         return "Cuenta [numero=" + numero
             + ", user=" + user
-            + ", saldo=" + saldo
+            + ", saldo=" + Math.round(this.saldo * 100) / 100.0
             + ", movimientos=" + movimientos.size()
             + "]";
     }

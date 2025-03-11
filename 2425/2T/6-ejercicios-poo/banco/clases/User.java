@@ -1,5 +1,8 @@
 package clases;
 
+import java.util.Random;
+import java.util.Arrays;
+
 import lib.Leer;
 
 public class User {
@@ -35,8 +38,24 @@ public class User {
         return this.dni.equals(dni) && this.secretCode == code;
     }
 
+    public String showHiddenCode() {
+        String secretCodeString = String.valueOf(this.secretCode);
+        String hidden = secretCodeString.replaceAll(".", "*");
+
+        int randomI = (int) (Math.random()*hidden.length());
+        int randomI2;
+        do{
+            randomI2 = (int) (Math.random()*hidden.length());
+        }while(randomI == randomI2);
+
+        hidden = hidden.substring(0, randomI)+ secretCodeString.charAt(randomI) + hidden.substring(randomI+1);
+        hidden = hidden.substring(0, randomI2)+ secretCodeString.charAt(randomI2) + hidden.substring(randomI2+1);
+
+        return hidden;
+    }
+
     @Override
     public String toString(){
-        return this.name + " ("+this.dni+")";
+        return "[" + this.dni + "] " + this.name + " (" + this.showHiddenCode() + ")";
     }
 }
